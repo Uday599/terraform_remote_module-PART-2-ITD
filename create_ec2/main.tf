@@ -1,11 +1,3 @@
-data "aws_ami" "ubuntu" {
-    most_recent = true
-    filter {
-       name = "name"
-       values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-    }
-    owners = ["099720109477"]
-}
 
 resource "tls_private_key" "rsa" {
    algorithm = "RSA"
@@ -41,7 +33,7 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
 }
 
 resource "aws_instance" "create_ec2" {
-     ami = data.aws_ami.ubuntu.id
+     ami = "ami-0f58b397bc5c1f2e8"
      instance_type = var.instance_type
      key_name = aws_key_pair.deployer.key_name
      vpc_security_group_ids = [aws_security_group.allow_ssh.id]
